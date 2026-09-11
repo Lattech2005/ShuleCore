@@ -699,13 +699,15 @@ By clicking "I Agree" below, you confirm you have read and agree to all these te
 <h2 data-sw="Sajili Mwanafunzi" data-en="Register Student">Sajili Mwanafunzi</h2>
 <label data-sw="Jina la mwanafunzi" data-en="Student name">Jina la mwanafunzi</label>
 <input id="studentName">
+<label data-sw="Tarehe ya Kuzaliwa" data-en="Date of Birth">Tarehe ya Kuzaliwa</label>
+<input id="studentDOB" type="date">
 <label data-sw="Admission Number (Hiari)" data-en="Admission Number (Optional)">Admission Number (Hiari)</label>
 <input id="studentAdmission">
 <label data-sw="Jina la Mzazi/Mlezi" data-en="Parent/Guardian Name">Jina la Mzazi/Mlezi</label>
 <input id="studentParentName" placeholder="Mfano: Juma Ally">
 <label data-sw="Namba ya Mzazi/Mlezi" data-en="Parent/Guardian Phone">Namba ya Mzazi/Mlezi</label>
 <input id="studentParentPhone" type="tel" placeholder="0744123456">
-<label data-sw="Sehemu Anapoishi" data-en="Location">Sehemu Anapoishi</label>
+<label data-sw="Mahali Mwanafunzi Anapoishi au Anapotoka (Hiari)" data-en="Where the Student Lives or Comes From (Optional)">Mahali Mwanafunzi Anapoishi au Anapotoka (Hiari)</label>
 <input id="studentLocation" placeholder="Mfano: Mtaa/Kijiji/Kata">
 <label data-sw="Aina ya Makazi (Hiari)" data-en="Boarding Status (Optional)">Aina ya Makazi (Hiari)</label>
 <select id="studentBoarding">
@@ -2260,6 +2262,7 @@ let savingStudent=false;
 async function addStudentToClass(){
 if(!currentUser||!currentClassId||savingStudent)return;
 const name=$("studentName").value.trim();
+const dob=$("studentDOB").value;
 const admission=$("studentAdmission").value.trim();
 const parentName=$("studentParentName").value.trim();
 const parentPhone=$("studentParentPhone").value.trim();
@@ -2312,7 +2315,7 @@ savingStudent=true;
 const btn=document.querySelector('button[onclick="addStudentToClass()"]');
 if(btn)btn.disabled=true;
 const docRef=await db.collection("users").doc(currentUser.uid).collection("students").add({
-name:name,admission:admission,parentName:parentName,parentPhone:parentPhone,location:location,
+name:name,dob:dob,admission:admission,parentName:parentName,parentPhone:parentPhone,location:location,
 boarding:boarding,roomNumber:roomNumber,visitorName:visitorName,visitorPhone:visitorPhone,
 classId:currentClassId,className:cls.name,level:cls.type,
 combinationId:comboId,combinationName:comboName,requirements:requirements,status:status,
@@ -2323,7 +2326,7 @@ createdAt:firebase.firestore.FieldValue.serverTimestamp()
    Firestore) - hii ndiyo iliyokuwa inasababisha kitufe kuchelewa (sekunde 5-6) kila ukiongeza mwanafunzi */
 allStudents.push({
 id:docRef.id,
-name:name,admission:admission,parentName:parentName,parentPhone:parentPhone,location:location,
+name:name,dob:dob,admission:admission,parentName:parentName,parentPhone:parentPhone,location:location,
 boarding:boarding,roomNumber:roomNumber,visitorName:visitorName,visitorPhone:visitorPhone,
 classId:currentClassId,className:cls.name,level:cls.type,
 combinationId:comboId,combinationName:comboName,requirements:requirements,status:status,
@@ -2331,6 +2334,7 @@ createdAt:{toDate:function(){return new Date()}}
 });
 
 $("studentName").value="";
+$("studentDOB").value="";
 $("studentAdmission").value="";
 $("studentParentName").value="";
 $("studentParentPhone").value="";
@@ -2507,6 +2511,8 @@ comboSelectHtml='<label data-sw="Combination" data-en="Combination">Combination<
 let bodyHtml=`
 <label data-sw="Jina la mwanafunzi" data-en="Student name">Jina la mwanafunzi</label>
 <input id="modalStudentName" value="${escapeHtml(student.name)}">
+<label data-sw="Tarehe ya Kuzaliwa" data-en="Date of Birth">Tarehe ya Kuzaliwa</label>
+<input id="modalStudentDOB" type="date" value="${student.dob||""}">
 <label data-sw="Admission Number (Hiari)" data-en="Admission Number (Optional)">Admission Number (Hiari)</label>
 <input id="modalStudentAdmission" value="${escapeHtml(student.admission||"")}">
 <label data-sw="Jina la Mzazi/Mlezi" data-en="Parent/Guardian Name">Jina la Mzazi/Mlezi</label>
@@ -2562,6 +2568,7 @@ box.appendChild(row);
 
 openModal(t("editStudentTitle"),bodyHtml,async function(){
 const newName=$("modalStudentName").value.trim();
+const newDOB=$("modalStudentDOB").value;
 const newAdmission=$("modalStudentAdmission").value.trim();
 const newParentName=$("modalStudentParentName").value.trim();
 const newParentPhone=$("modalStudentParentPhone").value.trim();
@@ -2610,7 +2617,7 @@ throw new Error(
 }
 
 await db.collection("users").doc(currentUser.uid).collection("students").doc(id).update({
-name:newName,admission:newAdmission,parentName:newParentName,parentPhone:newParentPhone,location:newLocation,
+name:newName,dob:newDOB,admission:newAdmission,parentName:newParentName,parentPhone:newParentPhone,location:newLocation,
 boarding:newBoarding,roomNumber:newRoomNumber,visitorName:newVisitorName,visitorPhone:newVisitorPhone,
 combinationId:combinationId,combinationName:combinationName,requirements:requirements,status:status
 });
