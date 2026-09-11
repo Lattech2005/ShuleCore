@@ -2853,7 +2853,8 @@ const nextComboSel=(nextClass&&nextClass.type==="A"&&$("formNextComboSelect"))?$
 const nextCombo=nextComboSel?allCombinations.find(c=>c.id===nextComboSel):null;
 /* Mahitaji MAPYA ya darasa/combination ya mwaka ujao - havihusiani kabisa na
    deni la sasa la mwanafunzi, ni sawa kwa kila mwanafunzi kwenye orodha hii */
-const newItemsForNextClass=nextClass?((nextCombo?nextCombo.requirements:nextClass.requirements)||[]):[];
+const nextClassAda=nextClass?{id:"ada",name:"Ada",amount:Number(nextClass.fee)||0}:null;
+const newItemsForNextClass=nextClass?[nextClassAda].concat((nextCombo?nextCombo.requirements:nextClass.requirements)||[]):[];
 const displayClassName=nextClass?nextClass.name:(cls?cls.name:"");
 const schoolName=currentUserData?currentUserData.schoolName:"";
 const logoData=currentUserData?currentUserData.logoData:"";
