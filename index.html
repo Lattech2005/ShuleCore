@@ -312,9 +312,15 @@ width:50px;height:50px;border-radius:50%;border:3px solid transparent;cursor:poi
 </header>
 
 <div class="container">
-
+<!-- SPLASH -->
+<section id="splashSection">
+<div class="card authCard" style="text-align:center">
+<h1 style="font-size:32px;margin-bottom:6px">ShuleCore</h1>
+<p style="opacity:.7">BY LATTECH</p>
+</div>
+</section>
 <!-- LANGUAGE -->
-<section id="languageSection">
+<section id="languageSection" class="hidden">
 <div class="card authCard">
 <h2 data-sw="Chagua Lugha" data-en="Choose Language">Chagua Lugha</h2>
 <p id="autoLogoutMsg" class="message hidden" style="color:#c62828"></p>
@@ -3687,6 +3693,12 @@ console.log("Service worker registration failed:",err);
 });
 });
 }
+window.addEventListener("load",function(){
+setTimeout(function(){
+$("splashSection").classList.add("hidden");
+$("languageSection").classList.remove("hidden");
+},3000);
+});
 
 </script>
 </body>
