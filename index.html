@@ -317,7 +317,7 @@ width:50px;height:50px;border-radius:50%;border:3px solid transparent;cursor:poi
 <div class="card authCard" style="text-align:center">
 <img src="icon-192-v3.png" style="width:120px;height:120px;border-radius:20px;margin-bottom:10px">
 <h1 style="font-size:32px;margin-bottom:6px">ShuleCore</h1>
-<p style="opacity:.7">Powered BY LATTECH</p>
+<p style="opacity:.7">POWERED BY LATTECH</p>
 </div>
 </section>
 <!-- LANGUAGE -->
@@ -707,7 +707,7 @@ By clicking "I Agree" below, you confirm you have read and agree to all these te
 <label data-sw="Jina la mwanafunzi" data-en="Student name">Jina la mwanafunzi</label>
 <input id="studentName">
 <label data-sw="Tarehe ya Kuzaliwa" data-en="Date of Birth">Tarehe ya Kuzaliwa</label>
-<input id="studentDOB" type="date">
+<input id="studentDOB" type="text" placeholder="Mfano: 20/05/2010">
 <label data-sw="Admission Number (Hiari)" data-en="Admission Number (Optional)">Admission Number (Hiari)</label>
 <input id="studentAdmission">
 <label data-sw="Kabila (Hiari)" data-en="Tribe (Optional)">Kabila (Hiari)</label>
@@ -2526,7 +2526,7 @@ let bodyHtml=`
 <label data-sw="Jina la mwanafunzi" data-en="Student name">Jina la mwanafunzi</label>
 <input id="modalStudentName" value="${escapeHtml(student.name)}">
 <label data-sw="Tarehe ya Kuzaliwa" data-en="Date of Birth">Tarehe ya Kuzaliwa</label>
-<input id="modalStudentDOB" type="date" value="${student.dob||""}">
+<input id="modalStudentDOB" type="text" placeholder="Mfano: 20/05/2010" value="${student.dob||""}">
 <label data-sw="Admission Number (Hiari)" data-en="Admission Number (Optional)">Admission Number (Hiari)</label>
 <input id="modalStudentAdmission" value="${escapeHtml(student.admission||"")}">
 <label data-sw="Kabila (Hiari)" data-en="Tribe (Optional)">Kabila (Hiari)</label>
