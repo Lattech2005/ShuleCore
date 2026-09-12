@@ -2428,6 +2428,9 @@ list.forEach(function(s){(s.requirements||[]).forEach(function(r){reqMap[r.id]=r
 const head=$(headId);
 head.innerHTML="";
 const hr=document.createElement("tr");
+ const snTh=document.createElement("th");
+snTh.textContent="S/N";
+hr.appendChild(snTh);
 [t("jina"),t("admission"),t("parentName"),t("parentPhone"),t("boarding"),t("combination"),t("regDate")].forEach(function(x){
 const th=document.createElement("th");
 th.textContent=x;
@@ -2449,7 +2452,7 @@ head.appendChild(hr);
 const body=$(bodyId);
 body.innerHTML="";
 
-list.forEach(function(s){
+list.forEach(function(s,idx){
 const row=document.createElement("tr");
 
 function cell(value){
@@ -2457,7 +2460,7 @@ const td=document.createElement("td");
 td.textContent=value||"-";
 return td;
 }
-
+row.appendChild(cell(idx+1));
 row.appendChild(cell(s.name));
 row.appendChild(cell(s.admission));
 row.appendChild(cell(s.parentName));
