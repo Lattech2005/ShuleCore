@@ -703,6 +703,8 @@ By clicking "I Agree" below, you confirm you have read and agree to all these te
 <input id="studentDOB" type="date">
 <label data-sw="Admission Number (Hiari)" data-en="Admission Number (Optional)">Admission Number (Hiari)</label>
 <input id="studentAdmission">
+<label data-sw="Kabila (Hiari)" data-en="Tribe (Optional)">Kabila (Hiari)</label>
+<input id="studentTribe" placeholder="Mfano: Msukuma">
 <label data-sw="Jina la Mzazi/Mlezi" data-en="Parent/Guardian Name">Jina la Mzazi/Mlezi</label>
 <input id="studentParentName" placeholder="Mfano: Juma Ally">
 <label data-sw="Namba ya Mzazi/Mlezi" data-en="Parent/Guardian Phone">Namba ya Mzazi/Mlezi</label>
@@ -2264,6 +2266,7 @@ if(!currentUser||!currentClassId||savingStudent)return;
 const name=$("studentName").value.trim();
 const dob=$("studentDOB").value;
 const admission=$("studentAdmission").value.trim();
+const tribe=$("studentTribe").value.trim();
 const parentName=$("studentParentName").value.trim();
 const parentPhone=$("studentParentPhone").value.trim();
 const location=$("studentLocation").value.trim();
@@ -2315,7 +2318,7 @@ savingStudent=true;
 const btn=document.querySelector('button[onclick="addStudentToClass()"]');
 if(btn)btn.disabled=true;
 const docRef=await db.collection("users").doc(currentUser.uid).collection("students").add({
-name:name,dob:dob,admission:admission,parentName:parentName,parentPhone:parentPhone,location:location,
+name:name,dob:dob,admission:admission,tribe:tribe,parentName:parentName,parentPhone:parentPhone,location:location,
 boarding:boarding,roomNumber:roomNumber,visitorName:visitorName,visitorPhone:visitorPhone,
 classId:currentClassId,className:cls.name,level:cls.type,
 combinationId:comboId,combinationName:comboName,requirements:requirements,status:status,
@@ -2326,7 +2329,7 @@ createdAt:firebase.firestore.FieldValue.serverTimestamp()
    Firestore) - hii ndiyo iliyokuwa inasababisha kitufe kuchelewa (sekunde 5-6) kila ukiongeza mwanafunzi */
 allStudents.push({
 id:docRef.id,
-name:name,dob:dob,admission:admission,parentName:parentName,parentPhone:parentPhone,location:location,
+name:name,dob:dob,admission:admission,tribe:tribe,parentName:parentName,parentPhone:parentPhone,location:location,
 boarding:boarding,roomNumber:roomNumber,visitorName:visitorName,visitorPhone:visitorPhone,
 classId:currentClassId,className:cls.name,level:cls.type,
 combinationId:comboId,combinationName:comboName,requirements:requirements,status:status,
@@ -2336,6 +2339,7 @@ createdAt:{toDate:function(){return new Date()}}
 $("studentName").value="";
 $("studentDOB").value="";
 $("studentAdmission").value="";
+$("studentTribe").value="";
 $("studentParentName").value="";
 $("studentParentPhone").value="";
 $("studentLocation").value="";
@@ -2515,6 +2519,8 @@ let bodyHtml=`
 <input id="modalStudentDOB" type="date" value="${student.dob||""}">
 <label data-sw="Admission Number (Hiari)" data-en="Admission Number (Optional)">Admission Number (Hiari)</label>
 <input id="modalStudentAdmission" value="${escapeHtml(student.admission||"")}">
+<label data-sw="Kabila (Hiari)" data-en="Tribe (Optional)">Kabila (Hiari)</label>
+<input id="modalStudentTribe" value="${escapeHtml(student.tribe||"")}">
 <label data-sw="Jina la Mzazi/Mlezi" data-en="Parent/Guardian Name">Jina la Mzazi/Mlezi</label>
 <input id="modalStudentParentName" value="${escapeHtml(student.parentName||"")}">
 <label data-sw="Namba ya Mzazi/Mlezi" data-en="Parent/Guardian Phone">Namba ya Mzazi/Mlezi</label>
@@ -2570,6 +2576,7 @@ openModal(t("editStudentTitle"),bodyHtml,async function(){
 const newName=$("modalStudentName").value.trim();
 const newDOB=$("modalStudentDOB").value;
 const newAdmission=$("modalStudentAdmission").value.trim();
+const newTribe=$("modalStudentTribe").value.trim();  
 const newParentName=$("modalStudentParentName").value.trim();
 const newParentPhone=$("modalStudentParentPhone").value.trim();
 const newLocation=$("modalStudentLocation").value.trim();
@@ -2617,7 +2624,7 @@ throw new Error(
 }
 
 await db.collection("users").doc(currentUser.uid).collection("students").doc(id).update({
-name:newName,dob:newDOB,admission:newAdmission,parentName:newParentName,parentPhone:newParentPhone,location:newLocation,
+name:newName,dob:newDOB,admission:newAdmission,tribe:newTribe,parentName:newParentName,parentPhone:newParentPhone,location:newLocation,
 boarding:newBoarding,roomNumber:newRoomNumber,visitorName:newVisitorName,visitorPhone:newVisitorPhone,
 combinationId:combinationId,combinationName:combinationName,requirements:requirements,status:status
 });
