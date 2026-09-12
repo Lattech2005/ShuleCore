@@ -1398,6 +1398,7 @@ try{await credential.user.sendEmailVerification()}catch(e){console.log(e)}
 msg.style.color="#16833f";
 msg.textContent="Account imetengenezwa. Una siku 7 za majaribio bure.";
 
+try{localStorage.setItem("shulecore_update_seen_v1","1")}catch(e){}
 await enterApp(credential.user);
 
 }catch(error){
@@ -3247,6 +3248,17 @@ $("authSection").classList.add("hidden");
 $("lockSection").classList.add("hidden");
 $("appSection").classList.remove("hidden");
 
+try{
+if(!localStorage.getItem("shulecore_update_seen_v1")){
+localStorage.setItem("shulecore_update_seen_v1","1");
+showInfoModal(
+($("language").value==="sw")
+?"Tumeongeza vipengele vipya: Tarehe ya Kuzaliwa, Kabila (Hiari), Namba za Mfululizo (S/N), na Sehemu Anapoishi sasa ni hiari. Kwa wanafunzi uliokwishasajili, unaweza kwenda kwenye 'Badilisha' (Edit) wa kila mwanafunzi kujaza taarifa hizo mpya."
+:"New features added: Date of Birth, Tribe (Optional), Serial Numbers (S/N), and Location is now optional. For students you've already registered, you can go to 'Edit' on each student to fill in these new details.",
+($("language").value==="sw")?"🎉 Mfumo Umeboreshwa":"🎉 System Updated"
+);
+}
+}catch(e){}
 applyTheme(currentUserData.themeColor||"indigo");
 updateSchoolBranding();
 updateTrialBanner(info);
