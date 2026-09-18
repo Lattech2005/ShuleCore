@@ -1949,8 +1949,7 @@ $("studentCombinationBox").classList.add("hidden");
 $("classComboFilterBox").classList.add("hidden");
 }
 
-await loadCombinations();
-await loadStudents();
+await Promise.all([loadCombinations(),loadStudents()]);
 
 renderClassRequirementsList();
 showClassTab("overview");
@@ -3263,7 +3262,7 @@ applyTheme(currentUserData.themeColor||"indigo");
 updateSchoolBranding();
 updateTrialBanner(info);
 
-await cleanupOrphanedData();
+cleanupOrphanedData();
 showPage("dashboard");
 resetInactivityTimer();
 
