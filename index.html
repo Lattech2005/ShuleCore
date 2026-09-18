@@ -1974,6 +1974,7 @@ if(tab==="overview")renderClassOverview();
 if(tab==="combos")renderCombosForClass();
 if(tab==="students"){
 populateComboFilter();
+populateStudentComboSelect();
 $("studentsAllWrap").classList.add("hidden");
 const clsForTab=allClasses.find(c=>c.id===currentClassId);
 if(clsForTab&&clsForTab.type==="A"){
